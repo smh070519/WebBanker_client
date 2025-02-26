@@ -1,9 +1,11 @@
-import logo from './logo.svg';
+
+import { RouterProvider } from 'react-router-dom';
 import './App.css';
+import router from './routues/router';
 
 function App() {
   return (
-   <>hello</>
+    <RouterProvider router={router} future={{ v7_startTransition: true }}/>
   );
 }
 
