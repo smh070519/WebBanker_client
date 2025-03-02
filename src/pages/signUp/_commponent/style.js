@@ -8,6 +8,7 @@ S.Input = styled.input`
     background-color: #545353;
     border: none;
     border-radius: 10px;
+    padding: 0 5px;
 `
 
 export default S;

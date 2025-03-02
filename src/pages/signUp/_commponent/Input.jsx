@@ -1,9 +1,9 @@
 import React from 'react';
 import S from './style';
 
-const Input = ({type}) => {
+const Input = ({...rest}) => {
     return (
-        <S.Input type={type}/>
+        <S.Input type={rest.type} placeholder={rest.placeholder} />
     );
 };
 

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import S from './style';
 import Input from './_commponent/Input';
 import { Link, useNavigate } from 'react-router-dom';
+import CryptoJS from 'crypto-js'; // crypto-js 임포트
 
 const SignUp = () => {
     const [userName, setUserName] = useState(""); //이름
@@ -12,6 +13,9 @@ const SignUp = () => {
     const navigate = useNavigate(); // 네비게이트 훅 추가
 
     const onsubmit = async () => {
+        const hashedPw = CryptoJS.SHA256(userPw).toString(CryptoJS.enc.Hex);
+        setUserPw(hashedPw); // 해싱된 비밀번호로 상태 업데이트
+
         const response = await fetch('http://localhost:8000/newuser1', {
             method: 'POST',
             headers: {
@@ -20,7 +24,7 @@ const SignUp = () => {
             body: JSON.stringify({
                 UserName: userName,
                 UserId: userId,
-                UserPw: userPw,
+                UserPw: userPw,  // 비밀번호는 해싱된 값이어야 합니다.
                 UserPwRe : retry,
                 UserEmail: userEmail,
             }),
@@ -28,7 +32,12 @@ const SignUp = () => {
         const result = await response.json();
 
         if (result.Success === true) { // 서버에서 응답이 true일 경우
-            navigate('/main'); // 성공 페이지로 이동 (경로는 필요에 따라 수정)
+            navigate('/main',{
+                state : {
+                    userName : result.UserName,
+                    message : "로그인 성공"
+                }
+            }); // 성공 페이지로 이동 (경로는 필요에 따라 수정)
         } else {
             alert("회원가입 실패"); // 실패 시 alert 또는 다른 처리를 해줄 수 있습니다.
         }
@@ -44,25 +53,26 @@ const SignUp = () => {
                 </S.Header>
                 <S.InputBox>
                     <S.Label>이름</S.Label>
-                    <Input onChange={(e) => setUserName(e.target.value)} type={'text'} />
+                    <Input onChange={(e) => setUserName(e.target.value)} type={'text'} placeholder={"이름을 입력해주세요"} />
                 </S.InputBox>
                 <S.InputBox>
                     <S.Label>아이디</S.Label>
-                    <Input onChange={(e) => setUserId(e.target.value)} type={'text'} />
+                    <Input onChange={(e) => setUserId(e.target.value)} type={'text'} placeholder={"아이디를 입력해주세요"}/>
                 </S.InputBox>
                 <S.InputBox>
                     <S.Label>비밀번호</S.Label>
-                    <Input type={'password'} onChange={(e) => setUserPw(e.target.value)} />
+                    <Input type={'password'} onChange={(e) => setUserPw(e.target.value)} placeholder={"비밀번호를 입력해주세요"}/>
                 </S.InputBox>
                 <S.InputBox>
                     <S.Label>비밀번호 확인</S.Label>
-                    <Input type={'password'} onChange={(e) => setRry(e.target.value)} />
+                    <Input type={'password'} onChange={(e) => setRry(e.target.value)} placeholder={"비밀번호 재입력 입력해주세요"}/>
                 </S.InputBox>
                 <S.InputBox>
                     <S.Label>이메일</S.Label>
-                    <Input onChange={(e) => setEmail(e.target.value)} type={'email'} />
+                    <Input onChange={(e) => setEmail(e.target.value)} type={'email'} placeholder={"이메일을 입력해주세요"}/>
                 </S.InputBox>
                 <S.Submit onClick={onsubmit}>전송버튼</S.Submit>
+
             </S.SignUpBox>
         </S.Main>
     );
