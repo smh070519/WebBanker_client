@@ -18,10 +18,11 @@ const SignUp = () => {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                userName: userName,
-                userId: userId,
-                userPw: userPw,
-                userEmail: userEmail,
+                UserName: userName,
+                UserId: userId,
+                UserPw: userPw,
+                UserPwRe : retry,
+                UserEmail: userEmail,
             }),
         });
         const result = await response.json();
@@ -33,9 +34,6 @@ const SignUp = () => {
         }
     };
 
-    useEffect(() => {
-        // onsubmit()을 여기서 호출하지 않도록 합니다. (회원가입 버튼 클릭 시 호출되게 합니다)
-    }, []); 
 
     return (
         <S.Main>
