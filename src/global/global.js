@@ -6,18 +6,18 @@ const GlobalStyle = createGlobalStyle`
   ${reset}
 
   @font-face {
-      font-family: 'Pretendard-Regular';
-      src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-      font-weight: 400;
-      font-style: normal;
-  }
+    src: url('https://fonts.googleapis.com/css2?family=Rowdies:wght@300;400;700&display=swap') format('woff2');
+    font-family: "Rowdies", serif;
+    font-weight: 300;
+    font-style: normal;
+}
 
   * {
     box-sizing: border-box;
     letter-spacing: -0.4px;
     text-decoration: none;
     color: #fff;
-    font-family: 'Pretendard-Regular' !important;
+    font-family: 'Rowdies' !important;
   }
 
   body {
