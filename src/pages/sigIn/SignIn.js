@@ -7,12 +7,10 @@ import CryptoJS from 'crypto-js'; // crypto-js 임포트
 const SignIn = () => {
     const [userId, setUserId] = useState("");
     const [userPw, setUserPw] = useState("");
-    const [hashedPw, setHashedPw] = useState(""); // 해싱된 비밀번호 상태
     const navigate = useNavigate(); // useNavigate 훅 사용
 
     const onsubmit = async () => {
         const hashedPassword = CryptoJS.SHA256(userPw).toString(CryptoJS.enc.Hex);
-        setHashedPw(hashedPassword); // 해싱된 비밀번호로 상태 업데이트
 
         const response = await fetch('http://localhost:8000/userlogin', {
             method: 'POST',
@@ -21,7 +19,7 @@ const SignIn = () => {
             },
             body: JSON.stringify({
                 UserId: userId,
-                UserPw: hashedPw,  // 해싱된 비밀번호를 전송
+                UserPw: hashedPassword,  // 해싱된 비밀번호를 전송
             }),
         });
         const result = await response.json();

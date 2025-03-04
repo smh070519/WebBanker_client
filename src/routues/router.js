@@ -4,6 +4,7 @@ import SignUp from '../pages/signUp/SignUp';
 import LayOut from '../pages/layout/LayOut';
 import Check from '../pages/CheckPage/Check';
 import SignIn from '../pages/sigIn/SignIn';
+import BreakDown from '../pages/breakdown/BreakDown';
 
 
 
@@ -21,8 +22,8 @@ const router = createBrowserRouter([
                 element : <Main/>
             },
             {
-                path : '/present',
-                element : <></>
+                path : '/breakdown',
+                element : <BreakDown/>
             },
             {
                 path : '/signup',

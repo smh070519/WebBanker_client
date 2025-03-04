@@ -15,8 +15,8 @@ const Navber = ({trueOfFalse}) => {
             </Link>
             <Link to={trueOfFalse&&'/present'}>
                 <S.NavBox>
-                    <S.NavImage src={process.env.PUBLIC_URL + `/images/navber/present.png`} alt="present" />
-                    <p>혜택</p>   
+                    <S.NavImage src={process.env.PUBLIC_URL + `/images/navber/receipt.png`} alt="present" />
+                    <p>내역</p>   
                 </S.NavBox>
             </Link>
             <Link to={trueOfFalse&&'/mypage'}>

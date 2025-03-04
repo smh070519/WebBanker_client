@@ -17,8 +17,9 @@ const SignUp = (props) => {
 
     const onsubmit = async () => {
         const hashedPw = CryptoJS.SHA256(userPw).toString(CryptoJS.enc.Hex);
-        setUserPw(hashedPw); // 해싱된 비밀번호로 상태 업데이트
-
+        const hashedRetry = CryptoJS.SHA256(retry).toString(CryptoJS.enc.Hex);
+        console.log("1",hashedPw)
+        console.log("2",hashedRetry)
         const response = await fetch('http://localhost:8000/newuser1', {
             method: 'POST',
             headers: {
@@ -27,13 +28,13 @@ const SignUp = (props) => {
             body: JSON.stringify({
                 UserName: userName,
                 UserId: userId,
-                UserPw: userPw,  // 비밀번호는 해싱된 값이어야 합니다.
-                UserPwRe : retry,
+                UserPw: hashedPw,  // 비밀번호는 해싱된 값이어야 합니다.
+                UserPwRe : hashedRetry,
                 UserEmail: userEmail,
             }),
         });
         const result = await response.json();
-
+        console.log(result)
         if (result.Success === true) { // 서버에서 응답이 true일 경우
             setTrueOfFalse(result.Success)
             console.log(trueOfFalse)
@@ -47,11 +48,6 @@ const SignUp = (props) => {
             alert("회원가입 실패"); // 실패 시 alert 또는 다른 처리를 해줄 수 있습니다.
         }
     };
-
-    console.log(userName)
-    console.log(userId)
-    console.log(userPw)
-    console.log(userEmail)
     return (
         <S.Main>
             <S.SignUpBox>
